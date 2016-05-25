@@ -38,7 +38,7 @@
         </ul>
 
         <form action="{{ url('/add')}}" method="POST" class="form-inline">
-
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             {{--  name:<input type="text" name="name">
               amount: <input type="text" name="amount">
