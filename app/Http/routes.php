@@ -21,3 +21,6 @@ Route::get('/', 'CompanyController@index');
 Route::post('/add', 'CompanyController@store');
 
 
+Route::delete('/destroy/{id}', 'CompanyController@destroy');
+
+

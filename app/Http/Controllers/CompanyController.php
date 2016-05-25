@@ -85,7 +85,9 @@ class CompanyController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$item = Company::findOrFail($id);
+		$item ->delete();
+		return redirect()->back();
 	}
 
 }
