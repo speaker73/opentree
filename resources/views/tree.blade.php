@@ -210,9 +210,10 @@
             if (a > b) return -1;
         }
         level_arr.sort(sortDown);
-        var iter = Math.max.apply( Math, level_arr);
         var max_level = Math.max.apply( Math, level_arr);
         function order_calc() {
+            console.log("level_arr:["+level_arr+"]");
+            console.log("tree_arr:["+tree_arr+"]");
             for(var i = max_level;i>0;i--){
                 for(var j = 0;j<level_arr.length;j++){
                     var level = i;
@@ -221,7 +222,7 @@
                     if(level==id_level){
                         console.log(level+" Print it! "+tree_arr[j]);
                         total_add(tree_arr[j]);
-                        console.log("delete level_arr: "+i+" value: "+level_arr[i]);
+
                     }
                 }
             }
