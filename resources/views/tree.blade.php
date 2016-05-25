@@ -179,26 +179,7 @@
             $("#"+i).attr("total_amount", total_calc(i));
         }
         /*The order of addition*/
-        function order(){
-            /* Добавляем елементы у которых есть child, но которые тоже имеют родителя */
-            for(var i=0;i<tree_arr.length;i++){
-                var our_parent = $('#' + tree_arr[i]).attr('parent');
-                var our_parent_length = $('.list-group-item[parent="'+tree_arr[i]+'"]').length;
-                if(our_parent_length > 0 ){
-                    if(tree_arr[i]!= our_parent){
-                        total_add(tree_arr[i]);
-                    }
-                }
-            }
-            /* добавляем елементы без родителей */
-            for(var i2=0;i2<tree_arr.length;i2++){
-                var our_parent2 = $('#' + tree_arr[i2]).attr('parent');
-                var our_parent_length2 = $('.list-group-item[parent="'+tree_arr[i2]+'"]').length;
-                if(our_parent2 == tree_arr[i2] ){
-                    total_add(tree_arr[i2]);
-                }
-            }
-        }
+
         var level_arr = [];
         function order_add_level(){
             for(var i=0;i<tree_arr.length;i++){
@@ -241,12 +222,6 @@
                         console.log(level+" Print it! "+tree_arr[j]);
                         total_add(tree_arr[j]);
                         console.log("delete level_arr: "+i+" value: "+level_arr[i]);
-                        /*level_arr.splice(i, 1);*/
-                        /*console.log("splice tree_arr: "+j+" value: "+tree_arr[j]);*/
-                        /* tree_arr.splice(j, 1);*/
-                        /*console.log("delete tree_arr: "+j+" value: "+tree_arr[j]);
-                         delete tree_arr[j];
-                         console.log("tree_arr:"+tree_arr);*/
                     }
                 }
             }
