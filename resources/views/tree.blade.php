@@ -150,7 +150,12 @@
         tree_builder();
         /*Edit form*/
         function add_value(){
-            var number = tree_arr[tree_arr.length-1] + 1
+
+            if(li_length == 0){
+               var number = 1;
+            }else{
+                var number = tree_arr[tree_arr.length-1] + 1;
+            }
             $("#input_parent").attr("value", number);
             $("#input_id").attr("value", number);
         }
