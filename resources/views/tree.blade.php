@@ -18,7 +18,7 @@
             @foreach($companies as $item)
                 {{--{!!$item->parent == 2?"<ul>":""!!}
                 {!!$item->id != $item->parent?"<ul>":""!!}--}}
-                <li id="{{$item->id}}" class="list-group-item" parent="{{$item->parent}}" amount="{{$item->amount}}" total_amount="{{$item->amount}}" level="">
+                <li id="{{$item->id}}" class="list-group-item" data-parent="{{$item->parent}}" data-amount="{{$item->amount}}" data-total_amount="{{$item->amount}}" data-level="">
                     <form action="{{ url('destroy/'.$item->id) }}" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
@@ -138,7 +138,7 @@
         /*console.log(tree_arr);*/
         function tree_builder(){
             for( var i=0;i<=li_length;i++) {
-                var parent = $('#' + tree_arr[i]).attr('parent');
+                var parent = $('#' + tree_arr[i]).attr('data-parent');
                 if (tree_arr[i] != parent) {
                     $("#" + tree_arr[i])
                             .appendTo("#ul" + parent);
@@ -162,14 +162,14 @@
         add_value();
         /* Calculate total amount  */
         function total_calc(id){
-            var our_amount = Number($('#' + id).attr('amount'));
+            var our_amount = Number($('#' + id).attr('data-amount'));
             var total_amount_id = our_amount;
             var our_parent = id;
             for(var i = 0;i<li_length;i++){
                 if(tree_arr[i]!=our_parent){
-                    var id_parent = $('#' + tree_arr[i]).attr('parent');
+                    var id_parent = $('#' + tree_arr[i]).attr('data-parent');
                     /*console.log('id:'+id_parent);*/
-                    var id_amount = Number( $('#' + tree_arr[i]).attr('total_amount') );
+                    var id_amount = Number( $('#' + tree_arr[i]).attr('data-total_amount') );
                     /*console.log(id_amount);*/
                     if(id_parent == our_parent){
                         total_amount_id = Number(total_amount_id + id_amount);
@@ -188,22 +188,22 @@
         var level_arr = [];
         function order_add_level(){
             for(var i=0;i<tree_arr.length;i++){
-                var our_parent = $('#' + tree_arr[i]).attr('parent');
+                var our_parent = $('#' + tree_arr[i]).attr('data-parent');
                 var our_parent_length =$('.list-group-item[parent="'+tree_arr[i]+'"]').length;
                 if(our_parent == tree_arr[i]){
-                    $("#"+tree_arr[i]).attr("level", 1);
+                    $("#"+tree_arr[i]).attr("data-level", 1);
                     /*tree_arr.splice(i, 1);*/
                     level_arr[level_arr.length] = 1;
                 }
                 if(our_parent != tree_arr[i])
                 {
-                    $("#"+tree_arr[i]).attr("level", 2);
+                    $("#"+tree_arr[i]).attr("data-level", 2);
                     /*tree_arr.splice(i, 1);*/
                     level_arr[level_arr.length] = 2;
                 }
-                var id_parent_level = Number($('#' + our_parent).attr('level'));
+                var id_parent_level = Number($('#' + our_parent).attr('data-level'));
                 if(id_parent_level > 1){
-                    $("#"+tree_arr[i]).attr("level", id_parent_level + 1);
+                    $("#"+tree_arr[i]).attr("data-level", id_parent_level + 1);
                     level_arr.splice(level_arr.length-1, 1);
                     level_arr[level_arr.length] = id_parent_level + 1;
                 }
