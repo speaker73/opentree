@@ -87,10 +87,10 @@
                     <h4 class="modal-title">{{$item->name}}</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/edit/'.$item->id)}}" method="POST">
+                    <form action="{{ url('/edit/'.$item->id)}}" method="post">
 
-
-
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="_method" value="put">
 
                         <div class="form-group">
                             <label for="iput_name">Name</label>
