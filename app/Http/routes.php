@@ -18,6 +18,6 @@
 
 Route::get('/', 'CompanyController@index');
 
-
+Route::post('/add', 'CompanyController@store');
 
 

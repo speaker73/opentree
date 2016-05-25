@@ -33,9 +33,15 @@ class CompanyController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$addCompany = new Company;
+		$addCompany->id = $request->id;
+		$addCompany->name = $request->name;
+		$addCompany->amount = $request->amount;
+		$addCompany->parent = $request->parent;
+		$addCompany->save();
+		return redirect()->back();
 	}
 
 	/**
