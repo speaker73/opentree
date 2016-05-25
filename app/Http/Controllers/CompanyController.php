@@ -72,9 +72,14 @@ class CompanyController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+		$item = Company::findOrFail($id);
+		$item->name = $request->name;
+		$item->amount = $request->amount;
+		$item->parent = $request->parent;
+		$item ->save();
+		return redirect()->back();
 	}
 
 	/**

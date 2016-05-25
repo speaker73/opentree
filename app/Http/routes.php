@@ -20,6 +20,7 @@ Route::get('/', 'CompanyController@index');
 
 Route::post('/add', 'CompanyController@store');
 
+Route::put('/edit/{id}', 'CompanyController@update');
 
 Route::delete('/destroy/{id}', 'CompanyController@destroy');
 
