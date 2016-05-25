@@ -20,8 +20,8 @@
                 {!!$item->id != $item->parent?"<ul>":""!!}--}}
                 <li id="{{$item->id}}" class="list-group-item" parent="{{$item->parent}}" amount="{{$item->amount}}" total_amount="{{$item->amount}}" level="">
                     <form action="{{ url('destroy/'.$item->id) }}" method="POST">
-
-
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="_method" value="DELETE">
 
                         <button type="submit" class="btn btn-danger" >
                             <i class="fa fa-trash"></i> Delete
