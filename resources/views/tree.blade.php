@@ -16,35 +16,50 @@
 
 <div class="container">
     <div class="content">
-        <ul class="list-group" id="tree">
+        <ul class="list-group center-block" id="tree">
             @foreach($companies as $item)
-                {{--{!!$item->parent == 2?"<ul>":""!!}
-                {!!$item->id != $item->parent?"<ul>":""!!}--}}
-                <li id="{{$item->id}}" class="list-group-item" data-parent="{{$item->parent}}"
-                    data-amount="{{$item->amount}}" data-total_amount="{{$item->amount}}" data-level="">
-                    <form action="{{ url('destroy/'.$item->id) }}" method="POST">
+
+                <li id="{{$item->id}}" class="list-group-item h3 panel panel-success alert-info" data-parent="{{$item->parent}}"
+                    data-amount="{{$item->amount}}" data-total_amount="{{$item->amount}}" data-level="" >
+
+
+                            <span>{!!$item->name!!}</span>
+                    <form action="{{ url('destroy/'.$item->id) }}" method="POST" class="form-inline right">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
 
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger" style="margin-bottom:8px;margin-top:8px;">
                             <i class="fa fa-trash"></i> Delete
                         </button>
+                        <button type="button" class="btn btn-info form-inline" style="margin-bottom:8px;margin-top:8px;" data-toggle="modal" data-target="#Modal{{$item->id}}">
+                            Edit
+                        </button>
                     </form>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#Modal{{$item->id}}">
-                        Edit
-                    </button>
-                    <label>
-                        {{--<input type="checkbox" /> --}}id:{!!$item->id!!} | parent:{!!$item->parent!!} |
-                        name:{!!$item->name!!} | Earnings:${!!$item->amount!!}
-                        K {{-- total amount from base:{!!$item->total_amount!!}--}}
-                    </label>
+
+                        <div class="panel-footer">
+
+                            <label class="label label-primary">id <span class='badge' style="color:#337AB7;background:#fff;">{!!$item->id!!}</span></label>
+                            <label class="label label-primary">parent <span class='badge' style="color:#337AB7;background:#fff;">{!!$item->parent!!}</span></label>
+
+                            <label class="label label-primary">Earnings <span class='badge' style="color:#337AB7;background:#fff;">${!!$item->amount!!}K</span></label>
+                        </div>
+
+
                 </li>
-                {!!"<ul id='ul".$item->id."'></ul>"!!}
+                {!!"<ul style='background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);' id='ul".$item->id."'></ul>"!!}
                 {{--{!!$item->parent == 2?"</ul>":""!!}--}}
             @endforeach
         </ul>
-
-        <form action="{{ url('/add')}}" method="POST" class="form-inline">
+        <div class="panel panel-default">
+            <div class="panel-body">
+        <form action="{{ url('/add')}}" method="POST" class="form-inline" >
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             {{--  name:<input type="text" name="name">
@@ -77,7 +92,9 @@
 
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
-
+            </div>
+            <div class="panel-footer">Add form</div>
+        </div>
 
     </div>
 </div>
@@ -191,7 +208,7 @@
         }
         /* Add total amount from tree*/
         function total_add(i) {
-            $("#" + i).append("<label>| Total:$" + total_calc(i) + "K</label>");
+            $("#" + i+" .panel-footer").append("<label role='presentation' class='label label-primary'>Total  <span class='badge' style='color:#337AB7;background:#fff;'>$" + total_calc(i) + "K</span></label>");
             $("#" + i).attr("data-total_amount", total_calc(i));
         }
         /*The order of addition*/
