@@ -12,9 +12,13 @@
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     {{--<link rel="stylesheet" href="bower_resources/bootstrap/dist/css/bootstrap-theme.css">--}}
     <style>
+        body
+        {
+            background-color: #E9E3CB;
+        }
         .ul-layer
         {
-            background-color: #fff;
+            background-color: #42A6DE;
             -webkit-background-clip: padding-box;
             background-clip: padding-box;
             border: 1px solid #ccc;
@@ -24,11 +28,17 @@
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
             padding-bottom: 20px;
         }
+        .page-header{
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="page-header">
+        <h1>Opentree <small>Company tree build and calculate</small></h1>
+    </div>
     <div class="content">
         <ul class="list-group center-block" id="tree">
             @foreach($companies as $item)
@@ -105,6 +115,11 @@
 
     </div>
 </div>
+<footer class="footer" style="background: url(//www.thewoodlandstx.com/images/footer_trees.jpg) repeat-x"; >
+    <div class="container" >
+<div style="height:155px;"></div>
+    </div>
+</footer>
 <!-- Modal -->
 @foreach($companies as $item)
     <div class="modal fade" id="Modal{{$item->id}}" role="dialog">
