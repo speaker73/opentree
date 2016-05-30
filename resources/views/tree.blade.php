@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tree</title>
+    <title>Opentree</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -28,10 +28,13 @@
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
             padding-bottom: 20px;
         }
-        .page-header{
+        .page-header
+        {
             border-bottom: none;
         }
+        .hidden{ display: none; }
     </style>
+    
 </head>
 <body>
 
@@ -43,7 +46,7 @@
         <ul class="list-group center-block" id="tree">
             @foreach($companies as $item)
 
-                <li id="{{$item->id}}" class="list-group-item h3 panel-success alert-info" data-parent="{{$item->parent}}"
+                <li id="{{$item->id}}" data-name="{{$item->name}}" class="list-group-item h3 panel-success alert-info" data-parent="{{$item->parent}}"
                     data-amount="{{$item->amount}}" data-total_amount="{{$item->amount}}" data-level="" >
 
 
@@ -70,7 +73,7 @@
 
 
                 </li>
-                {!!"<ul class='ul-layer' id='ul".$item->id."'></ul>"!!}
+                {!!"<ul class='ul-layer' id='ul_child".$item->id."'></ul>"!!}
                 {{--{!!$item->parent == 2?"</ul>":""!!}--}}
             @endforeach
         </ul>
@@ -79,17 +82,17 @@
         <form action="{{ url('/add')}}" method="POST" class="form-inline" >
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            {{--  name:<input type="text" name="name">
-              amount: <input type="text" name="amount">
-              total_amount: <input type="text" name="total_amount">
-              parent: <input type="text" name="parent">--}}
-            <div class="form-group">
+           
+            <div class="form-group hidden">
                 <label for="iput_name">id</label>
-                <input type="text" class="form-control" id="input_id" placeholder="1" name="id" readonly>
+                <input type="text" class="form-control" id="input_id" placeholder="1" name="id" disabled> 
+                <!-- disabled or readonly? -->
             </div>
             <div class="form-group">
                 <label for="input_parent">Parent</label>
-                <input type="text" class="form-control" id="input_parent" value="1" name="parent">
+                <!-- <input type="text" class="form-control" id="input_parent" value="1" name="parent"> -->
+                    <select class="form-control" id="parent-select" name="parent">  
+                    </select>
             </div>
             <div class="form-group">
                 <label for="iput_name">Name</label>
@@ -114,6 +117,7 @@
         </div>
 
     </div>
+
 </div>
 <footer class="footer" style="background: url(//www.thewoodlandstx.com/images/footer_trees.jpg) repeat-x"; >
     <div class="container" >
@@ -179,13 +183,22 @@
             crossorigin="anonymous"></script>
     {{-- <script src="bower_resources/bootstrap/dist/js/bootstrap.min.js"></script>--}}
     <script type="text/javascript">
-        /*Build Tree*/
+
+
+
+        /*Add id from array*/
         var li_length = $('.list-group-item').length;
         var tree_arr = [];
         @foreach($companies as $item)
                 tree_arr[tree_arr.length] = {{$item->id}};
         @endforeach
+
+       
+
+ 
+
     </script>
     <script src="opentree.js"></script>
+
 </body>
 </html>
