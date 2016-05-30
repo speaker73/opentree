@@ -29,8 +29,8 @@ function tree_builder() {
         var parent2 = parent;
         var id1 = Number($('#' + parent).attr('id'));
         var id2 = tree_arr[i];*/
-       // console.log("id1="+id1+" parent2="+parent2+" parent1=" + parent1+" id2="+id2);
-        if(company.parent1===company.id2&&company.parent2===company.id1&&company.tree_arr[i] != company.parent){
+        console.log("id1="+company.id1+" parent2="+company.parent2+" parent1=" + company.parent1+" id2="+company.id2);
+        if(company.parent1===company.id2&&company.parent2===company.id1&&company.id2 != parent){
             timeParadox = timeParadox + 1;
             if(timeParadox<=1){
             $("#tree").append("<ul class='time-paradox alert alert-danger'>Oops! You have a time-paradox! In the future that is a partners group. But not this time. Calculate is not true.</ul>");
