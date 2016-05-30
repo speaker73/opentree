@@ -43,20 +43,20 @@ function tree_builder2(){
     		company.id1=Number($('#' + company.parent2).attr('id'));
     		//console.log("id1="+company.id1+" parent2="+company.parent2+" parent1=" + company.parent1+" id2="+company.id2+" level="+company.level);
     	//if(company.id2 != company.parent1){
-    	for (var k = company.level; k > 0; k--) {
-			if(company.parent1===company.id&&company.parent===company.id1){
+    	for (var k = 0; k < max_level; k++) {
+			if(company.parent1===company.id&&company.parent2===company.id1&&tree_arr[i] != parent){
             	timeParadox = timeParadox + 1;
             	if(timeParadox<=1){
             		$("#tree").append("<ul class='time-paradox alert alert-danger'>Oops! You have a time-paradox! In the future that is a partners group. But not this time. Calculate is not true.</ul>");
             	}
             	company.paradox=1;
-                $("#" + company.parent2)
+                $("#" + company.id)
                     .appendTo(".time-paradox");
-                $("#ul_child" + company.parent2)
+                $("#ul_child" + company.id)
                     .appendTo(".time-paradox");
-                    console.log("find time-paradox from id="+company.id1);
+                    console.log("find time-paradox from id="+company.id);
         	}else{
-        		console.log("none time-paradox from id="+company.id2);
+        		console.log("none time-paradox from id="+company.id);
         		company.id2 = company.id1;
         		company.parent2 = company.parent1;
         		company.parent1=Number($('#' + company.parent2).attr('data-parent'));
@@ -134,13 +134,14 @@ function order_add_level() {
     }
 }
 order_add_level();
+var max_level = Math.max.apply(Math, level_arr);
 tree_builder2();
 function sortDown(a, b) {
     if (a < b) return 1;
     if (a > b) return -1;
 }
 level_arr.sort(sortDown);
-var max_level = Math.max.apply(Math, level_arr);
+
 function order_calc() {
     console.log("level_arr:[" + level_arr + "]");
     console.log("tree_arr:[" + tree_arr + "]");
