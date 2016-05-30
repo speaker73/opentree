@@ -18,29 +18,7 @@ function tree_builder() {
     var timeParadox = 0;
     for (var i = 0; i < li_length; i++) {
     	var parent = Number($('#' + tree_arr[i]).attr('data-parent'));
-    	var company = {
-    		parent1:Number($('#' + parent).attr('data-parent')),
-    		parent2:Number($('#' + tree_arr[i]).attr('data-parent')),
-    		id1:Number($('#' + parent).attr('id')),
-    		id2:tree_arr[i]
-    	}
-        /*var parent = Number($('#' + tree_arr[i]).attr('data-parent'));
-        var parent1 = Number($('#' + parent).attr('data-parent'));
-        var parent2 = parent;
-        var id1 = Number($('#' + parent).attr('id'));
-        var id2 = tree_arr[i];*/
-        console.log("id1="+company.id1+" parent2="+company.parent2+" parent1=" + company.parent1+" id2="+company.id2);
-        if(company.parent1===company.id2&&company.parent2===company.id1&&company.id2 != parent){
-            timeParadox = timeParadox + 1;
-            if(timeParadox<=1){
-            $("#tree").append("<ul class='time-paradox alert alert-danger'>Oops! You have a time-paradox! In the future that is a partners group. But not this time. Calculate is not true.</ul>");
-            }
-                $("#" + tree_arr[i])
-                    .appendTo(".time-paradox");
-                $("#ul_child" + tree_arr[i])
-                    .appendTo(".time-paradox");
-        }
-        	else if (tree_arr[i] != parent) {
+        	if (tree_arr[i] != parent) {
             $("#" + tree_arr[i])
                 .appendTo("#ul_child" + parent);
             $("#ul_child" + tree_arr[i])
@@ -58,32 +36,34 @@ function tree_builder2(){
     	}
     		company.parent2=Number($('#' + tree_arr[i]).attr('data-parent'));
     		company.id2=tree_arr[i];
+    		company.id=tree_arr[i];
+    		company.parent=Number($('#' + tree_arr[i]).attr('data-parent'));
     		company.level=Number($('#' + tree_arr[i] ).attr('data-level'));
     		company.parent1=Number($('#' + company.parent2).attr('data-parent'));
     		company.id1=Number($('#' + company.parent2).attr('id'));
-    		console.log("id1="+company.id1+" parent2="+company.parent2+" parent1=" + company.parent1+" id2="+company.id2+" level="+company.level);
-    	
-    	for (var k = 0; k < company.level; k++) {
-			if(company.parent1===company.id2&&company.parent2===company.id1&&company.id2 != company.parent1){
+    		//console.log("id1="+company.id1+" parent2="+company.parent2+" parent1=" + company.parent1+" id2="+company.id2+" level="+company.level);
+    	//if(company.id2 != company.parent1){
+    	for (var k = company.level; k > 0; k--) {
+			if(company.parent1===company.id&&company.parent===company.id1){
             	timeParadox = timeParadox + 1;
             	if(timeParadox<=1){
             		$("#tree").append("<ul class='time-paradox alert alert-danger'>Oops! You have a time-paradox! In the future that is a partners group. But not this time. Calculate is not true.</ul>");
             	}
             	company.paradox=1;
-                $("#" + tree_arr[i])
+                $("#" + company.parent2)
                     .appendTo(".time-paradox");
-                $("#ul_child" + tree_arr[i])
+                $("#ul_child" + company.parent2)
                     .appendTo(".time-paradox");
-                    console.log("time-paradox from id="+company.id2);
+                    console.log("find time-paradox from id="+company.id1);
         	}else{
-        		console.log("time-paradox none from id="+company.id2);
+        		console.log("none time-paradox from id="+company.id2);
         		company.id2 = company.id1;
         		company.parent2 = company.parent1;
         		company.parent1=Number($('#' + company.parent2).attr('data-parent'));
     			company.id1=Number($('#' + company.parent2).attr('id'));
         	}
+    	//}
     	}
-    	
     	 if (tree_arr[i] != parent&&company.paradox==0) {
             $("#" + tree_arr[i])
                 .appendTo("#ul_child" + parent);
