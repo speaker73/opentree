@@ -1,14 +1,50 @@
 /**
  * Created by User on 26.05.2016.
  */
+ (function(){ 
+  function parentselctor(){
+           if(tree_arr.length === 0){
+            $("#parent-select").append("<option value='1'>1</option>");
+           } else {
+                for(i=0;i<tree_arr.length;i++) {
+                    var parent_input = tree_arr[i];
+                    var input_name = $('#' + tree_arr[i]).attr('data-name')
+                    $("#parent-select").append("<option value='"+ parent_input +"'>"+parent_input+". "+input_name+"</option>");
+                }
+            }
+        }
+        parentselctor(); 
 function tree_builder() {
+    var timeParadox = 0;
     for (var i = 0; i <= li_length; i++) {
-        var parent = $('#' + tree_arr[i]).attr('data-parent');
-        if (tree_arr[i] != parent) {
+    	var parent = Number($('#' + tree_arr[i]).attr('data-parent'));
+    	var company = {
+    		parent1:Number($('#' + parent).attr('data-parent')),
+    		parent2:Number($('#' + tree_arr[i]).attr('data-parent')),
+    		id1:Number($('#' + parent).attr('id')),
+    		id2:tree_arr[i]
+    	}
+        /*var parent = Number($('#' + tree_arr[i]).attr('data-parent'));
+        var parent1 = Number($('#' + parent).attr('data-parent'));
+        var parent2 = parent;
+        var id1 = Number($('#' + parent).attr('id'));
+        var id2 = tree_arr[i];*/
+       // console.log("id1="+id1+" parent2="+parent2+" parent1=" + parent1+" id2="+id2);
+        if(company.parent1===company.id2&&company.parent2===company.id1&&company.tree_arr[i] != company.parent){
+            timeParadox = timeParadox + 1;
+            if(timeParadox<=1){
+            $("#tree").append("<ul class='time-paradox alert alert-danger'>Oops! You have a time-paradox! In the future that is a partners group. But not this time. Calculate is not true.</ul>");
+            }
+                $("#" + tree_arr[i])
+                    .appendTo(".time-paradox");
+                $("#ul_child" + tree_arr[i])
+                    .appendTo(".time-paradox");
+        }
+        else if (tree_arr[i] != parent) {
             $("#" + tree_arr[i])
-                .appendTo("#ul" + parent);
-            $("#ul" + tree_arr[i])
-                .appendTo("#ul" + parent);
+                .appendTo("#ul_child" + parent);
+            $("#ul_child" + tree_arr[i])
+                .appendTo("#ul_child" + parent);
         }
     }
 }
@@ -21,7 +57,7 @@ function add_value() {
     } else {
         number = tree_arr[tree_arr.length - 1] + 1;
     }
-    $("#input_parent").attr("value", number);
+    /*$("#input_parent").attr("value", number);*/
     $("#input_id").attr("value", number);
 }
 add_value();
@@ -97,3 +133,5 @@ function order_calc() {
     }
 }
 order_calc();
+
+})(); 
