@@ -16,7 +16,7 @@
         parentselctor(); 
 function tree_builder() {
     var timeParadox = 0;
-    for (var i = 0; i <= li_length; i++) {
+    for (var i = 0; i < li_length; i++) {
     	var parent = Number($('#' + tree_arr[i]).attr('data-parent'));
     	var company = {
     		parent1:Number($('#' + parent).attr('data-parent')),
